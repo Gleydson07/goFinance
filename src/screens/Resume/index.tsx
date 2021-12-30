@@ -24,6 +24,7 @@ import {
   LoadContainer
 } from './styles';
 import { ActivityIndicator } from 'react-native';
+import { useAuth } from '../../hooks/useAuth';
 
 interface TransactionDataProps {
   type: "up" | "down";
@@ -44,9 +45,12 @@ interface CategoryDataProps {
 // const tabBarHeight = useBottomTabBarHeight();
 
 export function Resume(){
+  const {user} = useAuth();
   const [isLoadingGraph, setIsLoadingGraph] = useState(false);
   const [totalByCategories, setTotalByCategories] = useState<CategoryDataProps[]>([] as CategoryDataProps[])
   const [selectedHeaderDate, setSelectedHeaderDate] = useState(new Date());
+
+  const dataKey = `@gofinance:transactions_user:${user.id}`;
 
   function handleChangeDate(action: "next" | "prev"){
     if(action === "next"){
@@ -59,7 +63,6 @@ export function Resume(){
   async function loadData(){
     setIsLoadingGraph(true);
 
-    const dataKey = "@gofinance:transactions";
     const response = await AsyncStorage.getItem(dataKey);
     const responseFormatted = response ? JSON.parse(response) : [];
     const totalByCategory: CategoryDataProps[] = [] as CategoryDataProps[];

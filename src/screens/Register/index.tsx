@@ -26,6 +26,7 @@ import {
   TypeTransactionsContainer
 } from './styles';
 import Header from '../../components/Header';
+import { useAuth } from '../../hooks/useAuth';
 
 type type = "up" | "down";
 
@@ -50,9 +51,8 @@ const schema = Yup.object().shape({
     .required("Preço é obrigatório")
 }).defined()
 
-const dataKey = "@gofinance:transactions";
-
 export function Register(){
+  const {user} = useAuth();
   const [typeSelected, setTypeSelected] = useState<type>("up");
   const [categoryModalOpen, setCategoryModalOpen] = useState(false);
   const [category, setCategory] = useState(initCategory);
@@ -65,6 +65,8 @@ export function Register(){
   } = useForm({
     resolver: yupResolver(schema)
   });
+  
+  const dataKey = `@gofinance:transactions_user:${user.id}`;
 
   function handleTransactionTypeSelect(type: "up" | "down"){
     setTypeSelected(type);

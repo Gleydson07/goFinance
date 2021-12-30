@@ -55,13 +55,13 @@ const initHighlightData = {
   },
 }
 
-const dataKey = "@gofinance:transactions";
-
 export function Dashboard(){
   const {user, signOut} = useAuth()
   const [transactions, setTransactions] = useState<DataListProps[]>([]);
   const [HighlightData, setHighlightData] = useState<HighlightData>(initHighlightData);
   const [isLoading, setIsLoading] = useState(true);
+
+  const dataKey = `@gofinance:transactions_user:${user.id}`;
   
   async function clearTransactions(){
     await AsyncStorage.removeItem(dataKey);
@@ -82,7 +82,7 @@ export function Dashboard(){
     transactions.map((item: DataListProps) => {
         if(item.type === "up"){
           entriesTotal += Number(item.amount);
-          if(new Date(item.dateTransaction) > lastDataEntries) lastDataEntries = new Date(item.dateTransaction);
+          if(lastDataEntries && new Date(item.dateTransaction) > lastDataEntries) lastDataEntries = new Date(item.dateTransaction);
         };
         
         if(item.type === "down"){
@@ -101,7 +101,7 @@ export function Dashboard(){
           day: '2-digit',
           month: '2-digit',
           year: 'numeric'
-        }).format(new Date(item.dateTransaction));
+        }).format(new Date(item.dateTransaction)) || "";
           
         return {
           id: item.id,
