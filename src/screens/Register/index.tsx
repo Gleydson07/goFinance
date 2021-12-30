@@ -21,12 +21,11 @@ import { TransactionTypeButton } from '../../components/Forms/TransactionTypeBut
 
 import { 
   Container, 
-  Header, 
-  Title,
   Form,
   Fields,
   TypeTransactionsContainer
 } from './styles';
+import Header from '../../components/Header';
 
 type type = "up" | "down";
 
@@ -51,7 +50,7 @@ const schema = Yup.object().shape({
     .required("Preço é obrigatório")
 }).defined()
 
-const dataKey = "gofinance@transactions";
+const dataKey = "@gofinance:transactions";
 
 export function Register(){
   const [typeSelected, setTypeSelected] = useState<type>("up");
@@ -114,9 +113,7 @@ export function Register(){
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <Container>
-        <Header>
-          <Title>Cadastro</Title>
-        </Header>
+      <Header title="Cadastro"/>
         
         <Form>
           <Fields>

@@ -6,10 +6,17 @@ import { Dashboard } from '../screens/Dashboard';
 import { Register } from '../screens/Register';
 import theme from '../global/styles/theme';
 import { MaterialIcons } from '@expo/vector-icons'
+import Resume from '../screens/Resume';
+
+interface ScreenStyle {
+  size: number,
+  color: string
+}
 
 const { Navigator, Screen } = createBottomTabNavigator();
 
-export default function AppRoutes(){
+export function AppRoutes(){
+
   return (
     <Navigator
       screenOptions={{
@@ -27,7 +34,7 @@ export default function AppRoutes(){
         name="Listagem"
         component={Dashboard}
         options={{
-          tabBarIcon: (({size, color}) => (
+          tabBarIcon: (({size, color}: ScreenStyle) => (
             <MaterialIcons 
               name="format-list-bulleted"
               size={size}
@@ -40,7 +47,7 @@ export default function AppRoutes(){
         name="Cadastrar"
         component={Register}
         options={{
-          tabBarIcon: (({size, color}) => (
+          tabBarIcon: (({size, color}: ScreenStyle) => (
             <MaterialIcons 
               name="attach-money"
               size={size}
@@ -52,9 +59,9 @@ export default function AppRoutes(){
 
       <Screen
         name="Resumo"
-        component={Register}
+        component={Resume}
         options={{
-          tabBarIcon: (({size, color}) => (
+          tabBarIcon: (({size, color}: ScreenStyle) => (
             <MaterialIcons 
               name="pie-chart"
               size={size}

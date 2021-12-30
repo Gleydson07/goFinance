@@ -5,7 +5,6 @@ import {Feather } from '@expo/vector-icons'
 import theme from '../../global/styles/theme';
 import { FlatList } from 'react-native';
 import { BorderlessButton } from 'react-native-gesture-handler';
-import { CardTransactionProps } from '../../components/TransactionCard';
 import { DataListProps } from '.';
 
 export const Container = styled.View`
@@ -98,4 +97,9 @@ export const TransactionsList = styled(
     contentContainerStyle: {paddingBottom: 24}
 })`
   
+`
+
+export const LoadContainer = styled.View`
+    flex: 1;
+    justify-content: center
 `
